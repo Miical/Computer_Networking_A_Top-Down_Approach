@@ -16,4 +16,4 @@ for i in range(1, 11):
     print('Request timed out')
     clientSocket.close() 
   else:
-    print(rec_message.decode())
+    print(rec_message.decode(), ', RTT =', time() - startTime, 's')

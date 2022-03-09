@@ -93,5 +93,31 @@ Figure 3.5 shows a Web server that spawns a new process for each connection. How
 
 
 
+## 3.3 Connectionless Transport: UDP
 
+**The reason to use UDP**
+
+- *Finer application-level control over what data is sent, and when.* It could meet the real-time  applications' requirement.
+- *No connection establishment* 
+- *No connection state* 
+- *Small packet header overhead.* The TCP segment has 20 bytes of header overhead in every segment, whereas UDP has only 8 bytes of overhead.
+
+The most recent versions of HTTP run over UDP, providing their own error control and congestion control at the application layer.
+
+### 3.3.1 UDP Segment Structure
+
+![image-20220309230218067](assets/image-20220309230218067.png)
+
+UDP header has only four fields,  each consisting of two bytes.
+
+`Length` field specifies the number of bytes in the UDP segment(header plus data).
+
+`Checksum` field is used by the receiving host to check whether errors have been introduced into the segment.
+
+### 3.3.2 UDP Checksum
+
+The checksum is used to determine whether bits within the UDP segment have been altered as it moved from source to destination.
+
+- **sender side: **performing the 1 complement of the sum of all the 16-bit words in the segment.
+- **receiver side: **all four 16-bit words are added, including the checksum. if overflow occurs, it will be wrapped around. If no errors are introduced into the packet, then the sum at the receiver will be 1111111111111111.
 

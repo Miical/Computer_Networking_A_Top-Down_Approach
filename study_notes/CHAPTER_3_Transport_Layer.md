@@ -121,3 +121,91 @@ The checksum is used to determine whether bits within the UDP segment have been 
 - **sender side: **performing the 1 complement of the sum of all the 16-bit words in the segment.
 - **receiver side: **all four 16-bit words are added, including the checksum. if overflow occurs, it will be wrapped around. If no errors are introduced into the packet, then the sum at the receiver will be 1111111111111111.
 
+
+
+## 3.4 Principles of Reliable Data Transfer
+
+TCP is a reliable data transfer protocol that is implemented on top of an unreliable (IP) end-to-end network layer. 
+
+![image-20220310151434124](assets/image-20220310151434124.png)
+
+### 3.4.1 Building a Reliable Data Transfer Protocol
+
+#### Reliable Data Transfer over a Perfectly Reliable Channel: rdt1.0
+
+finite-state machine (FSM)
+
+![image-20220310153505555](assets/image-20220310153505555.png)
+
+We assume that the channel is reliable and fast enough to transfer packet.
+
+#### Reliable Data Transfer over a Channel with Bit Errors: rdt2.0
+
+We'll continue to assume for the moment that all transmitted packets are received in the order in which they were sent.
+
+This message-dictation protocol uses both **positive acknowledgments** (“OK”) and **negative acknowledgments** (“Please repeat that.”). In a computer network setting, reliable data transfer protocols based on such retransmission are known as **ARQ (Automatic Repeat reQuest) protocols**
+
+
+
+3 additional protocol capabilities
+
+- *Error detection.* UDP uses the Internet checksum field for this purpose.
+- *receiver feedback.*  
+- Retransmission.
+
+
+
+the FSM representation of rdt2.0:
+
+![image-20220310161216847](assets/image-20220310161216847.png)
+
+But the ACK/NAK could be corrupted.
+
+Sender will resend the data when it receives a garbled ACK or NAK packet. However, a new problem is that, the receiver don't down whether a packet is new data or a retransmission.
+
+so we add a new field to the data packet and have the sender number its data packets by putting a **sequence number** into this field. In this simple example, we use 1-bit status.
+
+![image-20220310171141155](assets/image-20220310171141155.png)
+
+![image-20220310171151316](assets/image-20220310171151316.png)
+
+Instead of sending NAK, we can send an ACK for the last last correctly received packet. a sender that receives two ACKs for the same packet(that is, receives **duplicate ACKs**) knows that the receiver did not correctly receive the packet following the packet that is being ACKed twice. NAK-free reliable data transfer protocol - **rdt2.2**
+
+![image-20220312112633309](assets/image-20220312112633309.png)
+
+![image-20220312112650256](assets/image-20220312112650256.png)
+
+#### Reliable Data Transfer over a Lossy Channel with Bit Errors: rdt3.0
+
+To handle the case that a packet may be lost in the channel, the sender will retransmit the packet after a delay.
+
+![image-20220312114315108](assets/image-20220312114315108.png)
+
+Protocol rdt3.0 is sometimes known as the alternating-bit protocol.
+
+### 3.4.2 Pipelined Reliable Data Transfer Protocols
+
+The efficiency of stop-and-wait protocol is too low, so we use a technology called **pipelining** to send multiple packets without waiting for acknowledgment.
+
+3 consequences:
+
+- The range of sequence numbers must be increased .
+- The sender and receiver sides of the protocols may have to buffer more than one packet.
+- The range of sequence numbers needed and the buffering requirements will depend on the manner in which a data transfer protocol responds to lost, corrupted, and overly delayed packets. Two basic approaches toward pipelined error recovery can be identified: **Go-Back-N** and **selective repeat**.
+
+### 3.4.3 Go-Back-N(GBN)
+
+A good [Simulation](https://media.pearsoncmg.com/ph/esm/ecs_kurose_compnetwork_8/cw/content/interactiveanimations/go-back-n-protocol/index.html)
+
+![image-20220312161354385](assets/image-20220312161354385.png)
+
+![image-20220312161406705](assets/image-20220312161406705.png)
+
+but it has a shortcoming that the received packet after the loss packet will be discarded.
+
+<img src="assets/image-20220312161608459.png" alt="image-20220312161608459" style="zoom:67%;" />
+
+### 3.4.4 Selective Repeat (SR)
+
+A good [simulation](https://media.pearsoncmg.com/ph/esm/ecs_kurose_compnetwork_8/cw/content/interactiveanimations/selective-repeat-protocol/index.html)
+

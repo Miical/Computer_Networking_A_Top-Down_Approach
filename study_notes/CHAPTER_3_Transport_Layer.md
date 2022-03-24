@@ -209,3 +209,41 @@ but it has a shortcoming that the received packet after the loss packet will be 
 
 A good [simulation](https://media.pearsoncmg.com/ph/esm/ecs_kurose_compnetwork_8/cw/content/interactiveanimations/selective-repeat-protocol/index.html)
 
+## 3.5 Connection-Oriented Transport: TCP
+
+### 3.5.1 The TCP Connection
+
+A TCP connection provides a **full-duplex service** and it's always **point to point**.
+
+TCP directs this data to the connection's **send buffer**, which is one of that is set aside during the initial three-way handshake. The maximum amount of data that can be grabbed and placed in a segment is limited by the **maximum segment size (MSS)**. The MSS is typically set by first determining the length of the largest link-layer frame that can be sent by the local sending host (the so-called **maximum transmission unit,** **MTU**), and then setting the MSS to ensure that a TCP segment (when encapsulated in an IP datagram) plus the TCP/IP header length (typically 40 bytes) will fit into a single link-layer frame. Both Ethernet and PPP link-layer protocols have an MTU of 1,500 bytes. 
+
+### 3.5.2 TCP Segment Structure
+
+`TCP segment` - (`header fields` and `data fields` )
+
+- `header fields`： 
+
+- `data fields`: application data
+
+![image-20220324154016141](assets/image-20220324154016141.png)
+
+#### Sequence Number and Acknowledgement Number
+
+**Sequence Number **
+
+![image-20220324155701419](assets/image-20220324155701419.png)
+
+The number of first data byte in each segment.
+
+**Acknowledgement Number**
+
+The next Sequence Number.
+
+### 3.5.3 Round-Trip Time Estimation and Timeout
+
+### 3.5.4 Reliable Data Transfer
+
+### 3.5.5 Flow Control
+
+### 3.5.6 TCP Connection Management
+

@@ -247,3 +247,5 @@ The next Sequence Number.
 
 ### 3.5.6 TCP Connection Management
 
+## 3.6 Principles of Congestion Control
+

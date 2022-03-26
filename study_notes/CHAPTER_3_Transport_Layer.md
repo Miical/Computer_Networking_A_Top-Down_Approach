@@ -331,3 +331,13 @@ i ii iii
 
 **Fairness and Parallel TCP Connections**
 
+## 3.8 Evolution of Transport-Layer Functionality
+
+**QUIC: Quick UDP Internet Connections**
+
+feature:
+
+- **Connection-Oriented and Secure.** 
+- **Streams.**
+- **Reliable, TCP-friendly congestion-controlled data transfer.** 
+

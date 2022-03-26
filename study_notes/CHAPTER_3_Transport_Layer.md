@@ -249,3 +249,85 @@ The next Sequence Number.
 
 ## 3.6 Principles of Congestion Control
 
+## 3.7 TCP Congestion Control
+
+### 3.7.1 Classic TCP Congestion Control
+
+limit the sender -> lead to three problems
+
+1. how to limit 
+2. how to preceive
+3. what algorithm
+
+**how a TCP sender limits the rate**
+
+congestion window
+
+$LastByteSent - LastByteAcked \le min(cwnd, rwnd)$
+
+The sender's send rate is roughly cwnd/RTT bytes/sec.
+
+**how to perceives**
+
+The dropped packet will result in a loss event or timeout at the sender.
+
+TCP uses acknowledgment to trigger its increase in congestion window size, TCP is said to be **self-clocking**
+
+**What algorithm**
+
+- A lost segment implies congestion, and hence, the TCP sender's rate should be decreased when a segment is lost.
+- An acknowledged segment indicates that the network is delivering the sender's segments to the receiver, and hence, the sender's rate can be increased when an ACK arrives for a previously unacknowledged segment.
+- Bandwidth probing. 
+
+-> **TCP congestion-control algorithm**
+
+1. slow start
+2. congestion avoidance
+3. fast recovery
+
+**Slow Start**
+
+initial value of cwnd - 1 MSS
+
+grows exponentially during the slow start phase
+
+timeout -> ssthrest is set to cwnd/2, cwnd is set to 1
+
+**Congestion Avoidance**
+
+On entry to the congestion-avoidance state, the cwnd will increases by just a single MSS every RTT.
+
+timeout-> cwnd set to 1
+
+triple duplicate ACKs -> ssthrest set to half the value of cwnd, cwnd is halved. Enter Fast Recovery state.
+
+**Fast Recovery**
+
+cwnd is increased by 1 MSS for every duplicate ACK received
+
+After receive ACK of missing segment, enter the congestion-avoidance state. if lost occur, it will enter the slow-start phase.
+
+---
+
+TCP congestion control is often referred to as an **additive-increase, multiplicative-decrease (AIMD)** form of congestion control. 
+
+A rich theory of congestion control has since been developed 
+
+**TCP Reno -> TCP Cubic**
+
+CUBIC only changes the congestion avoidance phase, as follows:
+
+i ii iii
+
+### 3.7.2 Network-Assisted Explicit Congestion Notification and Delayed-based Congestion Control
+
+**Explicit Congestion Notification**
+
+**Delay-based Congestion Control**
+
+### 3.7.3  Fairness
+
+**Fairness and UDP**
+
+**Fairness and Parallel TCP Connections**
+

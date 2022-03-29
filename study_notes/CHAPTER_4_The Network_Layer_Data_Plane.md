@@ -305,3 +305,19 @@ Among the most important possible actions are:
 
 **Firewalling**
 
+
+
+## 4.5 Middle boxes
+
+We've also encountered other network equipment("Boxes") within the network that sit on the data path and perform functions other tahn forwarding.
+
+**middleboxes**: any intermediary box performing functions apart from normal, standard functions of an IP router on the data path between a source host and destination host
+
+three types of services performed by middleboxes:
+
+- NAT Translation.
+- Security Services.
+- Performance Enhancement. 
+
+## 4.6 Summary
+

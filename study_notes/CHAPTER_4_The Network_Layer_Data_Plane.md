@@ -269,3 +269,39 @@ The approach to IPv4-to-IPv6 transition that has been most widely adopted in pra
 
 ![image-20220328235146673](assets/image-20220328235146673.png)
 
+
+
+## 4.4 Generalized Forwarding and SDN
+
+![image-20220329092211051](assets/image-20220329092211051.png)
+
+OpenFlow - a highly visible standard that has pioneered the notion of the match-plus action forwarding abstraction and controllers.
+
+Each entry in the match-plus-action forwarding table, known as a **flow table** in OpenFlow, includes:
+
+- **A set of header field values** to which an incoming packet will be matched. 
+- **A set of counters** that are updated as packets are matched to flow table entries.
+- **A set of actions** to be taken when a packet matches a flow table entry.
+
+### 4.4.1 Match
+
+![image-20220329093631372](assets/image-20220329093631372.png)
+
+### 4.4.2 Action
+
+Among the most important possible actions are:
+
+- Forwarding
+- Dropping
+- Modify-field
+
+### 4.4.3 OpenFlow Examples of Match-plus-action in Action
+
+![image-20220329095716261](assets/image-20220329095716261.png)
+
+**Simple Forwarding**
+
+**Load Balancing**
+
+**Firewalling**
+

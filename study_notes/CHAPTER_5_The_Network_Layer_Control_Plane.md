@@ -168,3 +168,50 @@ In the route-selection algorithm,l routes are first selected according to the lo
 
 ## 5.4.6 Putting the Pieces Together: Obtaining Internet Presence
 
+
+
+## 5.5 The SDN Control Plane
+
+Four key characteristics of an SDN architecture can be identified:
+
+- Flow-based forwarding. 
+- Separation of data plane and control plane. 
+- Network control functions: 
+- A programmable network network. 
+
+
+
+### 5.5.1 The SDN Control Plane: SDN Controller and SDN Network-control Applications
+
+The SDN control plane divides broadly into two components--the SDN controller and the SDN network-control applications. 
+
+**SDN controller**
+
+![image-20220330165636895](assets/image-20220330165636895.png)
+
+- A communication layer: communicating between the SDN controller and controlled network devices.
+- A network-wide state-management layer. 
+
+- The interface to the network-control application layer. 
+
+### 5.5.2 OpenFlow Protocol
+
+Among the important messages flowing from the controller to the controlled switch are the following:
+
+- Configuration. This message allows the controller to query and set a switch's configuration parameters.
+- Modify-State. This message is used by a controller to add/delete or modify entries in the switch's flow table, and to set switch port properties.
+- Read-State. This message is used by a controller to collect statistics and counter values from the switch's flow table and ports.
+- Sent-Packet. This message is used by the controller to send a specific packet out of a specified port at the controlled switch. The message itself contains the packet to be sent in its payload.
+
+Among the messages flowing from the SDN-controlled switch to the controller are the following:
+
+- Flow-Removed. This message informs the controller that a flow table entry has been removed, for example by a timeout or as the result of a received modify-state message.
+- Port-status. This message is used by a switch to inform the controller of a change in port status.
+- Packet-in. A packet arriving at a switch port and  not matching any flow table  entry is sent to the controller for additional processing. Matched packets may also be sent to the controller, as an action to be taken on a match. The packet-in message is used to sent such packets to the controller.
+
+### 5.5.3 Data and Control Plane Interaction: An Example
+
+![image-20220330193713589](assets/image-20220330193713589.png)
+
+### 5.5.4 SDN: Past and Future
+

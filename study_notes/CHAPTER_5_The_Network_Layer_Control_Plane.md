@@ -80,3 +80,91 @@ But if that loop involve three or more nodes, it will not be detected by the poi
 - Speed of convergence. 
 - Robustness. 
 
+
+
+## 5.3 Intra-AS Routing in the Internet: OSPF
+
+Both of these problems can be solved by organizing routers into **autonomous systems(ASs)**, with each AS consisting of a group of routers that are under the same administrative control. 
+
+Router within the same AS all run the same routing algorithm and have information about each other. The routing algorithm running within an autonomous system is called an **intra-autonomous system routing protocol**
+
+
+
+**Open shortest Path First (OSPF)**
+
+OSPF is a link-state protocol that used flooding of link-state information and a Dijkstra's least-cost path algorithm.
+
+Some of the advances embodied in OSPF include the following:
+
+- Security. 
+- Multiple same-cost paths.
+- Integrated support for unicast and multicast routing 
+- Support for hierarchy within a single AS.
+
+## 5.4 Routing Among the ISPs: BGP
+
+However, to route a packet across multiple ASs, say from a smartphone in Timbuktu to a server in a datacenter in Silicon Valley, we need an **inter-autonomous system routing protocol**, 
+
+**Border Gateway Protocol (BGP)**
+
+### 5.4.1 The Role of BGP
+
+As an inter-AS routing protocol, BGP provides each router a means to:
+
+- Obtain prefix reachability information from neighboring ASs.
+- Determine the "best" routes to the profixes.
+
+###   5.4.2 Advertising BGP Route Information 
+
+![image-20220330094537769](assets/image-20220330094537769.png)
+
+For each AS, each router is either a **Gateway router** or an **internal router**. A gateway router is a router on the edge of an AS that directly connects to one or more routers in other ASs. An internal router connects only to hosts and routers within its own AS.
+
+ Each such TCP connection, along with all the BGP messages sent over the connection, is called a **BGP connection**. Furthermore, a BGP connection that spans two ASs is called an **external BGP (eBGP)** connection, and a BGP session between routers in the same AS is called an **internal BGP (iBGP)** connection 
+
+### 5.4.3 Determining the Best Routes
+
+In BGP jargon, a prefix along with its attributes is called a **route**. Two of the more important attributes are AS-PATH and NEXT-HOP.
+
+The NEXT-HOP is the IP address of the router interface that begins the AS-PATH. 
+
+**Hot Potato Routing**
+
+![image-20220330103426925](assets/image-20220330103426925.png)
+
+Hot potato routing is thus a selfish algorithm--it tries to reduce the cost in its own AS while ignoring the other components of the end-to-end costs outside its AS.
+
+
+
+**Route-Selection Algorithm**
+
+If there are two or more routes to the same prefix, then BGP sequentially invokes the follow in elimination rules until one route remains:
+
+- A route is assigned a **local preference** value as one of its attributes. 
+- From the remaining routes, the route with the shortest AS-PATH is selected.
+
+- From the remaining routes, hot potato routing is used, that is, the route with the closest FNEXT-HOP router is selected.
+- If more than one route still remains, the router uses BGP identifiers to select the route
+
+### 5.4.4 IP-Anycast
+
+In addition to being the Internet' sinter-AS routing protocol, BGP is often used to implement the IP-anycast service, which is commonly used in DNS.
+
+![image-20220330134633121](assets/image-20220330134633121.png)
+
+the CDN company assigns the same IP address to each of the servers. When a BGP router receives multiple route advertisements for this IP address, it treats these advertisements as providing different paths to the same physical location. 
+
+When configuring its routing table, each router will locally use the BGP route-selection algorithm to pick the "best" route to that IP address. 
+
+But IP-anycast is extensively used by the DNS system to direct DNS queries to the closest root DNS server.
+
+
+
+### 5.4.5 Routing Policy
+
+In the route-selection algorithm,l routes are first selected according to the local-preference attribute, whose value is fixed by the policy of the local AS.
+
+
+
+## 5.4.6 Putting the Pieces Together: Obtaining Internet Presence
+

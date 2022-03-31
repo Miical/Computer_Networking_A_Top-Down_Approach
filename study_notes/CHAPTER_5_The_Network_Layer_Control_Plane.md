@@ -215,3 +215,14 @@ Among the messages flowing from the SDN-controlled switch to the controller are 
 
 ### 5.5.4 SDN: Past and Future
 
+## 5.6 ICMP: The Internet Control Message Protocol 
+
+![image-20220331101031915](assets/image-20220331101031915.png)
+
+ping 8/0
+
+Another interesting ICMP message is the source quench message. Its original purpose was to perform congestion control--to allow a congested router to send an ICMP source quench message to a host to force that host to reduce its transmission rate. 
+
+traceroute. According to the rules of the IP protocol, the router discards the datagram sand sends an ICMP warning message to the source.
+
+one of the datagrams will eventually make it all the way to the destination host. Because this datagram contains a UDP segment with an unlikely port number, the destination host sends a port unreachable ICMP message (type 3 code 3) back to the source.

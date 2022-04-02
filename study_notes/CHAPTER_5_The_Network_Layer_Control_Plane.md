@@ -226,3 +226,40 @@ Another interesting ICMP message is the source quench message. Its original purp
 traceroute. According to the rules of the IP protocol, the router discards the datagram sand sends an ICMP warning message to the source.
 
 one of the datagrams will eventually make it all the way to the destination host. Because this datagram contains a UDP segment with an unlikely port number, the destination host sends a port unreachable ICMP message (type 3 code 3) back to the source.
+
+## 5.7 Network Management and  SNMP, NETCONF/YANG
+
+Network management includes the deployment, integration, and coordination of the hardware, software, and human elements to monitor, test,, pool, configure, analyze, evaluate, and control the network and element resources to meet the real-time, operational performance, and Quality of Service requirements at a reasonable cost.
+
+### 5.7.1 The Network Management Framework
+
+![image-20220331102809072](assets/image-20220331102809072.png)
+
+The key components of network management:
+
+- Managing server. 
+- Managed device. 
+- Data 
+- Network management agent. 
+- Network management protocol. 
+
+In practice, there are three commonly used ways in a network operator can manage the network, using the components described above:
+
+- CLI. A network operator may issue direct **Command Line Interface (CLI)** commands to the device. 
+- SNMP/MIB. In this approach, the network operator can query/set the data contained in a device's **Management Information Base (MIB)** objects using the **Simple Network Management Protocol (SNMP)**. 
+- NETCONF/YANG. **YANG** is a data modeling language used to model configuration and operational data. The **NETCONF** protocol is used to communicate YANG-compatible actions and data to/from/among remote devices. 
+
+## 5.7.2 The Simple Network Management Protocol (SNMP) and the Management Information Base (MIB)
+
+The **Simple Network Management Protocol** is an application-layer protocol used to convey network-management control and information messages between a managing server and an agent executing on behalf of that managing server. 
+
+Typically, a request will be used to query or modify MIB object values associated with a managed device. a second common usage of SNMP is for an agent to send an unsolicited message, known as a trap message, to managing server. 
+
+![image-20220331135727656](assets/image-20220331135727656.png)
+
+![image-20220331135745974](assets/image-20220331135745974.png)
+
+**The Management Information Base (MIB)**
+
+### 5.7.3 The Network Configuration Protocol (NETCONF) and YAGN
+

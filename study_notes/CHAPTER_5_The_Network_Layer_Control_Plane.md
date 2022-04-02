@@ -263,3 +263,7 @@ Typically, a request will be used to query or modify MIB object values associate
 
 ### 5.7.3 The Network Configuration Protocol (NETCONF) and YAGN
 
+
+
+## 5.8 Summary
+

@@ -52,3 +52,93 @@ All CRC calculations are done in modulo-2 arithmetic without carries in addition
 
 
 ![image-20220402210317229](assets/image-20220402210317229.png)
+
+
+
+## 6.3 Multiple Access Links and Protocols
+
+There are two types of network links:
+
+- **point-to-point link**. 
+- **broadcast link**
+
+How to coordinate the access of multiple sending and receiving nodes to a shared broadcast channel--the **multiple access problem **.
+
+Computer networks similarly have protocols-so-called **multiple access protocols** -- by which nodes regulate their transmission into the shared broadcast channel. 
+
+We can classify just about any multiple access protocol as belonging to one of three categories: **channel partitioning protocols, random access protocols, and  taking-turns protocols**.
+
+### 6.3.1 Channel Partitioning Protocols
+
+TDM has two major drawbacks. First, a node is limited to an average rate of R/N bps even when it is the only node with packets to send. A second drawback is that a node must always wait for its turn in the transmission sequence--again, even when it is the only node with a frame to send. 
+
+FDM divides the R bps channel into different frequencies (each with a bandwidth of R/N) and assigns each frequency to one to the N nodes. It avoids collisions and divides the bandwidth fairly among the N nodes. However, FDM also shares a principal disadvantage with TDM--anode is limited to bandwidth of R/N, even when it is only node with packets to send.
+
+ A third channel partitioning protocol is **code division multiple access (CDMA)**. CDMA assigns a different code to each node. Each node then uses its unique code to encode the data bits it sends. 
+
+
+
+### 6.3.2 Random Access Protocols
+
+**Slotted ALOHA**
+
+The operation of slotted ALOHA in each node is imple:
+
+- When the node has a fresh frame to send, it waits until the beginning of the next slot and transmits the entire frame in the slot.
+- If there isn't a collision, the node has successfully transmitted its frame and thus need not consider retransmitting the frame. 
+- If there is a collision, the node detects the collision before the end of the slot. The node retransmits its frame in each subsequent slot with probability p until the frame is transmitted without a collision.
+
+When there are multiple active nodes, a certain fraction of the slots will have collisions and will therefore be "wasted." The second concern is that another fraction of the slots will be empty because all active nodes refrain from transmitting as a result of the probabilistic transmission policy. 
+
+**ALOHA**
+
+**Carrier Sense Multiple Access (CSMA)**
+
+Specifically, there are two important rules for polite human conversation:
+
+- Listen before speaking. If someone else is speaking, wait until they are finished. In the networking world, this is called **carrier sensing** -- a node listens to the channel before transmitting. 
+- If some one else begins talking at the same time, stop talking. In the networking world, this is called **collision detection** -- a transmitting node listens to the channel while it is transmitting. 
+
+These two rules are embodied in the family of **carrier sense multiple access** **(CSMA)** and **CSMA with collision detection (CSMA/CD)** 
+
+### Carrier Sense Multiple Access with Collision Detection (CSMA/CD)
+
+![image-20220403224844714](assets/image-20220403224844714.png)
+
+It's operation from the perspective of an adapter attached to a broadcast channel:
+
+- The adapter obtains a datagram from the network layer, prepares a link-layer frame, and puts the frame adapter buffer.
+- If the adapter senses that the channel is idle, it starts to transmit the frame. 
+- While transmitting, the adapter monitors for the presence of signal energy coming form other adapters using the broadcast channel.
+- If the adapter transmits the entire frame without detecting signal energy from other adapters, the adapter is finished with the frame. If, on the other hand, the adapter detects signal energy from other adapters while transmitting, it aborts the transmission (that is, it stops transmitting its frame).
+- After aborting, the adapter waits a random amount of time and then returns to step 2.
+
+To determine interval
+
+The **binary exponential backoff** algorithm, 
+
+Specifically, when transmitting a frame that has already experienced n collisions, a node chooses the value of K at random from {0, 1, 2, ..., 2^n-1}
+
+**CSMA/CD Efficiency**
+
+### 6.3.3 Taking-Turns Protocols
+
+Two important protocols
+
+- **polling protocol**.
+
+​		main node -> other nodes send data by turn. eg. Bluetooth
+
+- **token-passing protocol**
+
+​	When a token is passed to a node, the node begin to transmit. 
+
+### 6.3.4 DOCSIS: The Link-Layer Protocol for Cable Internet Access
+
+Data-Over Cable Service Interface Specifications
+
+DOCSIS uses FDM to divide the downstream and upstream network segments into multiple frequecncy channels. 
+
+Frames transmitted on downstream channel by the CMTS are received by all cable modems receiving that channel; however, multiple cable modems share the same upstream channel to the CMTS, and thus collisions can potentially occur.
+
+A cable access network thus serves as a terrific example of multiple access protocols in action -- FDM, TDM, random access, and centrally allocated time slots all within one network!

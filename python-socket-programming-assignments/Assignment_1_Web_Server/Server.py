@@ -6,7 +6,7 @@ serverSocket = socket(AF_INET, SOCK_STREAM)
 #Fill in start
 serverPort = 2333
 serverSocket.bind(('',serverPort))
-serverSocket.listen(1)
+serverSocket.listen(2)
 #Fill in end
 
 while True:
@@ -27,11 +27,13 @@ while True:
     for i in range(0, len(outputdata)): 
       connectionSocket.send(outputdata[i].encode())
     connectionSocket.send("\r\n".encode())
+    print("Success!")
     
     connectionSocket.close()
   except IOError:
     #Send response message for file not found
     #Fill in start 
+    print("Fail!")
     connectionSocket.send('HTTP/1.1 404 Not Found\n\n'.encode())
     #Fill in end
     #Close client socket

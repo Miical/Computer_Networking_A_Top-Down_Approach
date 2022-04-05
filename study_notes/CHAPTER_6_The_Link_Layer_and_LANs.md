@@ -269,3 +269,11 @@ The capability is accomplished as fllows:
 
 A more scalable approach to interconnecting VLAN switches is known as **VLAN trunking**
 
+
+
+## 6.5 Link Virtualization: A Network as a Link Layer
+
+### 6.5.1 Multiprotocol Label Switching (MPLS)
+
+![image-20220405190954376](assets/image-20220405190954376.png)
+

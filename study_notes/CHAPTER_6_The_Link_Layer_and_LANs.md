@@ -277,3 +277,29 @@ A more scalable approach to interconnecting VLAN switches is known as **VLAN tru
 
 ![image-20220405190954376](assets/image-20220405190954376.png)
 
+
+
+## 6.6 Data Center Networking
+
+### 6.6.1 Data Center Architectures
+
+The worker bees in a data center are the hosts. The hosts in data centers, called **blades** and resembling pizza boxes, are generally commodity hosts that include CPU, memory, and disk storage. The hosts are stacked in racks, with each rack typically having 20 to 40 blades. At the top of  each rack, there is a switch, aptly named the **Top of Rack (TOR) switch**.
+
+![image-20220405192345882](assets/image-20220405192345882.png)
+
+**Load Balancing**
+
+**Hierarchical Architecture**
+
+### 6.6.2 Trends in Data Center Networking
+
+**Cost Reduction**
+
+**Centralized SDN Control and Management**
+
+**Virtualization**
+
+**Physical Constraints**
+
+**Hardware Modularity and Customization**
+

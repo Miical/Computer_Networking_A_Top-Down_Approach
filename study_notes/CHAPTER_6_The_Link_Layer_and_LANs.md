@@ -315,3 +315,5 @@ The worker bees in a data center are the hosts. The hosts in data centers, calle
 
 ### 6.7.4 Web Client-Server Interaction: TCP and HTTP
 
+## 6.8 Summary
+

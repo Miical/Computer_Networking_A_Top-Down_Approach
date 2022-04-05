@@ -303,3 +303,15 @@ The worker bees in a data center are the hosts. The hosts in data centers, calle
 
 **Hardware Modularity and Customization**
 
+## 6.7 Retrospective: A Day in the life of a Web Page Request
+
+### 6.7.1 Getting Started: DHCP, UDP, IP and Ethernet
+
+![image-20220405200725161](assets/image-20220405200725161.png)
+
+### 6.7.2 Still Getting Started: DNS and ARP
+
+### 6.7.3 Still Getting Started: Intra-Domain Routing to the DNS Server.
+
+### 6.7.4 Web Client-Server Interaction: TCP and HTTP
+

@@ -142,3 +142,130 @@ DOCSIS uses FDM to divide the downstream and upstream network segments into mult
 Frames transmitted on downstream channel by the CMTS are received by all cable modems receiving that channel; however, multiple cable modems share the same upstream channel to the CMTS, and thus collisions can potentially occur.
 
 A cable access network thus serves as a terrific example of multiple access protocols in action -- FDM, TDM, random access, and centrally allocated time slots all within one network!
+
+
+
+## 6.4 Switched Local Area Networks
+
+### 6.4.1 Link-Layer Addressing and APR
+
+We'll also cover the Address Resolution Protocol (ARP), which provides a mechanism to translate IP addresses to link-layer addresses.
+
+**MAC Addresses**
+
+In truth, it is not hosts and routers that have link-layer addresses but rather their adapters (that is, network interfaces) that have link-layer addresses. 
+
+however, that link-layer switches do not have link-layer addresses associated with their interfaces that connect to hosts and routers.
+
+![image-20220404172245857](assets/image-20220404172245857.png)
+
+A link layer address is variously called a **LAN address**, a **physical address**, or a **MAC address**. 
+
+One interesting property of MAC addresses is that no two adapters have the same address. 
+
+IEEE manages the MAC address space. 
+
+When an adapter to send a frame to some destination adapter, the sending adapter inserts the destination adapter's MAC address into the frame and then sends the frame into the LAN.
+
+**Address Resolution Protocol (ARP)**
+
+Because there are both network-layer addresses, there is a need to translate between them. For the Internet, this is the job of the **Address Resolution Protocol （ARP)**
+
+![image-20220404212656767](assets/image-20220404212656767.png)
+
+How does the sending host determine the MAC address for the destination host with IP  address 222.222.222.222? As you might have guessed, it uses ARP. 
+
+ An APR module in the sending host takes any IP address on the same LAN as input, and returns the corresponding MAC address. 
+
+Each host and router has an **ARP table** in its memory, which contains mappings of IP addresses to MAC addresses. 
+
+How to query?
+
+First, the sender constructs a special packet called an **ARP packet** . An ARP packet has several fields, including the sending and receiving IP and MAC addresses. The purpose of the ARP query packet is to query all the other hosts and routers on the subnet to determine the MAC address corresponding to the IP address that is being resolved.
+
+222.222.222.220 passes an APR query packet to the adapter along with an indication that the adapter should send the packet to the MAC broadcast address, namely, FF-FF-FF-FF-FF-FF. The adapter encapsulates the ARP packet in a link-layer frame, use the broadcast address for the frame's destination address, and transmits the frame into the subnet.
+
+- The query ARP message is sent within a broadcast frame, whereas the response ARP message is sent within a standard. 
+- ARP is plug-and-play; an ARP table gets built automatically.
+
+**Sending a Datagram off the Subset**
+
+![image-20220404215540163](assets/image-20220404215540163.png)
+
+### 6.4.2 Ethernet
+
+...
+
+In the early 2000s, Ethernet experienced yet another major evolutionary change. Ethernet installations continued to use a star topology, but the hub at the center was replaced with a **switch**.
+
+**Ethernet Frame Structure**
+
+![image-20220404221249615](assets/image-20220404221249615.png)
+
+- Data field.
+- Destination address
+- Source address
+- Type field.  Hosts can use other network-layer protocols besides IO.
+- Cyclic redundancy check (CRC).
+- Preamble. 
+
+All of the Ethernet technologies provide connectionless service to the network layer. That is, when adapter A wants to send a datagram to B, adapter A encapsulates the datagram in an Ethernet frame and sends the frame into the LAN, without first handshaking with adapter B. 
+
+Ethernet technologies provide an unreliable service to the network layer. Specifically, when adapter B receives a frame from adapter A, it runs the frame through a CRC check, but neither sends an acknowledgment when a frame passes the CRC check nor sends a negative acknowledgment when a frame fails the CRC check. When a frame fails the CRC check, adapter B simply discards the frame. Thus, adapter A has no idea whether its transmitted frame reached adapter B and passed the CRC check. 
+
+if the application is using TCP, then TCP in Host B will not acknowledge the data contained in discarded frames, causing TCP in Host A to retransmit.
+
+**Ethernet Technologies**
+
+### 6.4.3 Link-Layer Switches
+
+We'll see that the switch itself is transparent to the hosts and outers in the subnet; that is, a host/router addresses a frame to another host/router and happily sends the frame into the LAN, unware that a switch will be receiving the frame and forwarding it.
+
+**Forwarding and Filtering**
+
+**Filtering** is the switch function that determines whether a frame should be forwarded to some interface or should just be dropped. 
+
+**Forwarding** is the switch function that determines the interfaces to which a frame a frame should be directed, and then moves the frame to those interfaces. 
+
+Switch filtering and forwarding are done with a **switch table**.
+
+An entry in the switch table contains 
+
+1. a MAC address
+2. the switch interface that leads toward that MAC address
+3. the time at which the entry was placed in the table. 
+
+![image-20220405163414987](assets/image-20220405163414987.png)
+
+There possible cases:
+
+- There is no entry in the table for DD-DD-DD-DD-DD-DD. if there is no entry for the destination address, the switch broadcasts the frame.
+- There is an entry in the table, interface x.  There being no deed to forward the frame to any of the other interfaces, the switch performs the filtering function by discarding the frame. 
+- There is an entry in the table, interface y != x. 
+
+How to config table?
+
+**Self-Learning**
+
+The capability is accomplished as fllows:
+
+1. The switch table is initially empty.
+2. For each incoming frame received on an interface, the switch stores in its table (1) the MAC address in the frame's source address field (2) the interface from which the frame arrived, and (3) the current time. In this manner, the switch records in its table the LAN segment on which the sender reside. If every host in the LAN eventually sends a frame, then every host will eventually get recorded in the table. 
+3. The switch deletes an address in the table if no frames are received with that address as the source address after some period of time. In this manner, if a PC is replaced by another PC, the MAC address of the original PC will eventually be purged from the switch table. 
+
+**Properties of Link Link-Layer Switching**
+
+- Elimination of collisions. 
+- Heterogeneous Link.
+- Management. 
+
+**Switches Versus Routers**
+
+![image-20220405171441691](assets/image-20220405171441691.png)
+
+### 6.4.4 Virtual Local Area Networks (VLANs)
+
+![image-20220405184958372](assets/image-20220405184958372.png)
+
+A more scalable approach to interconnecting VLAN switches is known as **VLAN trunking**
+

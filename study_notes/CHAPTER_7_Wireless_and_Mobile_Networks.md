@@ -117,3 +117,30 @@ During each time slot, a sender transmits on one of 79 channels, with the channe
 
 ![image-20220407133840998](assets/image-20220407133840998.png)
 
+## 7.4 Cellular Networks: 4G and 5G
+
+### 7.4.1 4G LTE Cellular Networks: Architecture and Elements
+
+- Mobile Device. The mobile  device also has a globally unique 64-bit identifier called the **International Mobile Subscriber Identity (IMSI)**, 
+- Base station. 
+- Home Subscriber Server (HSS)
+- Mobility Management Entity (MME).
+
+### 7.4.2 LTE Protocols Stacks
+
+LTE divides the mobile device's link layer into these sublayers:
+
+- Packet Data Convergence.
+- Radio Link Control. 
+- Medium Access Control (MAC).
+
+
+
+### 7.4.3 LET Radio Access Network
+
+### 7.4.4 Additional LET Functions: Network Attachment and Power Management
+
+### 7.4.5 The Global Cellular Network: A Network of Networks
+
+### 7.4.6 5G Cellular Networks
+

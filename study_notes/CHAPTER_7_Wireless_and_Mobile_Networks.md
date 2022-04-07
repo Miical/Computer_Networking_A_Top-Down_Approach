@@ -144,3 +144,5 @@ LTE divides the mobile device's link layer into these sublayers:
 
 ### 7.4.6 5G Cellular Networks
 
+
+
